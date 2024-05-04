@@ -1,0 +1,75 @@
+<div fxLayout="column" fxFlexFill style="height: 100%;">
+  <!-- toolbar -->
+  <div fxFlex="64px" style="overflow-y: hidden;">
+    <mat-toolbar
+      class="toolbar flexible mat-theme-indigo"
+      color="primary"
+      style="width: 100%;"
+    >
+      <a routerLink="/" title="Home" class="pointer">
+        <img
+          alt="Home"
+          src="/assets/images/colabo-logo-url-square.jpg"
+          height="55px"
+          style="margin-right: 7px; opacity: 0.9; border-radius: 7px;"
+        />
+      </a>
+      <rima-avatar [size]="AvatarSize.s"></rima-avatar>
+    </mat-toolbar>
+  </div>
+
+  <div fxFlex style="/*background-color: yellow;*/ overflow-y:scroll;">
+    <div *ngIf="!isLoggedIn" style="margin: 15px;">
+      <p>
+        To access this page you need:
+      </p>
+      <a routerLink="/rima-login">
+        <button mat-raised-button color="primary">Login</button>
+      </a>
+
+      <p>
+        or
+      </p>
+      <a routerLink="/rima-register">
+        <button mat-raised-button color="primary">Register</button>
+      </a>
+    </div>
+    <div *ngIf="isLoggedIn">
+      <div style="margin: 15px;">
+        <h3>Play Sustainability!</h3>
+        <div class="bordered-block">
+          The <b>Play Sustainability!</b> Interactive Edu-Game           
+        </div>
+        <button type="button" mat-icon-button (click)="refresh()"
+
+        matTooltip="Refresh Stats"
+        matTooltipPosition="right"
+        aria-label="Refresh Stats"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </div>
+      <div id="pillarsChart"></div>
+      <div id="teamsScoresChart"></div>
+      <div>
+        <h4>Impacts</h4>
+          cultureImpact: {{impacts.cultureImpact}}<br/>
+          economyImpact: {{impacts.economyImpact}}<br/>
+          societyImpact: {{impacts.societyImpact}}<br/>
+          environmentImpact: {{impacts.environmentImpact}}<br/>
+      </div>
+      <div>
+        <h4>Solutions</h4>
+        <div *ngFor="let solution of solutions">
+          <h5>Solution: {{solution.title}}</h5>
+          cultureImpact: {{solution.cultureImpact}}<br/>
+          economyImpact: {{solution.economyImpact}}<br/>
+          societyImpact: {{solution.societyImpact}}<br/>
+          environmentImpact: {{solution.environmentImpact}}<br/>
+          ---<br/>
+          <b>score</b>: {{solution.evaluation.score}}<br/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

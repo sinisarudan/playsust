@@ -1,0 +1,16 @@
+<div>
+  <div class="ps_title">{{ challenge?.humanID + ': ' + challenge?.title }}</div>
+  <div>
+    <img class="illustration" src="{{ imageUrl }}" />
+  </div>
+  <div  style="white-space: pre-wrap">{{ challenge?.description }}</div>
+      <!-- <img alt="{{challenge.title}}" height="150px" src="{{challenge.image}}"/> -->
+      <button
+      mat-icon-button
+      (click)="edit()"
+      aria-label="Edit the Challenge"
+      matTooltip="Edit the Challenge"
+    >
+    <mat-icon>edit</mat-icon>
+    </button> 
+</div>

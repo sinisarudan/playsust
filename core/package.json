@@ -1,0 +1,21 @@
+{
+    "name": "@colabo-playsust/f-core",
+    "version": "0.0.1",
+    "description": "PlaySustainability! edu-game (Sustainabile Development) Core puzzle",
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Cha-OS/colabo"
+    },
+    "scripts": {},
+    "main": "index.ts",
+    "dependencies": {},
+    "peerDependenciesLocal": {
+        "@colabo-playsust/f-management": "0.1.1"
+    },
+    "devDependencies": {}
+}

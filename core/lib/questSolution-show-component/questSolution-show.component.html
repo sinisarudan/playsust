@@ -1,0 +1,53 @@
+<div class='main'>
+<div class="flex-row">
+  <div class="general">
+  <header class="ps_title">{{ solution?.title }}</header>
+    <div>
+      <!-- <img class="illustration" src="{{ imageUrl }}" /> -->
+    </div>
+    <div  style="white-space: pre-wrap">{{ solution?.description }}</div>
+</div>
+
+<div class="details">
+    <header class="ps_subtitle">
+        Impact:
+    </header>
+    <b>environment Impact:</b>&nbsp;{{solution.environmentImpact}}<br/>
+    <b>economy Impact:</b>&nbsp;{{solution.economyImpact}}<br/>
+    <b>culture Impact:</b>&nbsp;{{solution.cultureImpact}}<br/>
+    <b>society Impact:</b>&nbsp;{{solution.societyImpact}}<br/>
+  </div>
+</div>
+<div>
+  <span>created by</span><rima-avatar [user]="solutionCreator() | async" [type]="AvatarType.other" [size]="AvatarSize.xs" [showTooltip]="false" [nameDisplay]="'right'"></rima-avatar>
+  <div *ngIf="solution.evaluation.isEvaluated">Evaluation:  {{solution.evaluation.totalScore.toFixed(2)}}</div>
+  <button
+    *ngIf="isModerator"
+    mat-icon-button
+    (click)="edit()"
+    aria-label="Edit the Solution"
+    matTooltip="Edit the Solution"
+  >
+    <mat-icon>edit</mat-icon>
+  </button> 
+  <button
+  mat-icon-button
+  (click)="view()"
+  aria-label="View the Solution"
+  matTooltip="View the Solution"
+>
+  <mat-icon>zoom_in</mat-icon>
+</button> 
+<button
+*ngIf="isModerator"
+mat-icon-button
+(click)="evaluate()"
+aria-label="Evaluate the Solution"
+matTooltip="Evaluate the Solution"
+>
+<mat-icon>star_half</mat-icon>
+<!-- <mat-icon>thumbs_up_down</mat-icon> -->
+</button> 
+
+</div>
+</div>

@@ -1,0 +1,41 @@
+<div class="ps_puzzle">
+    <div class="ps_title">{{'Puzzle ' + puzzle?.humanID}}</div>
+
+    <div class="challenge">
+      <div class="ps_subtitle">{{ puzzle?.challenge?.title }}</div>
+      <table>
+        <tr>
+          <td *ngIf="puzzlesShowImages">
+            <img class="illustration" src="{{ challengeImageUrl }}" />
+          </td>
+          <td *ngIf="puzzlesShowDescriptions" style="white-space: pre-wrap" class="dont-break-out">
+            {{ puzzle?.challenge?.description }}
+          </td>
+        </tr>
+      </table>
+    </div>
+    
+    <div class="skill">
+      <div class="ps_subtitle">{{ skillTitle }}</div>
+      <table>
+        <tr>
+          <td *ngIf="puzzlesShowImages">
+            <img class="illustration" src="{{ skillImageUrl }}" />
+          </td>
+          <td *ngIf="puzzlesShowDescriptions" style="white-space: pre-wrap" class="dont-break-out">
+            {{ skillDescription }}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="puzzlesShowDescriptions">
+      <button
+        mat-icon-button
+        (click)="edit()"
+        aria-label="Edit the Puzzle"
+        matTooltip="Edit the Puzzle"
+      >
+      <mat-icon>edit</mat-icon>
+      </button>      
+    </div>
+</div>

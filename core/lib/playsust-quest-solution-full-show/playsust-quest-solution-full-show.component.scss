@@ -1,0 +1,92 @@
+.playsust-form {
+  /*** padding: 10px; */
+}
+
+.phase-title {
+  font-weight: bold;
+  color: #009688;
+}
+
+.tab-content {
+  padding: 10px;
+}
+
+.user {
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    background-color: LightBlue;
+  }
+}
+
+/* .challenge { */
+.title {
+  font-size: 18px;
+  color: darkblue;
+  font-weight: bold;
+}
+.illustration {
+  max-width: 400px;
+}
+/* }*/
+
+/* .skill {
+  .title {
+    font-size: 18px;
+    color: darkblue;
+    font-weight: bold;
+  }
+  .illustration {
+    max-width: 400px;
+  }
+}*/
+
+.al-right{
+  text-align: right;
+}
+
+#resp-table {
+  width: 100%;
+  display: table;
+}
+#resp-table-caption{
+  display: table-caption;
+  text-align: center;
+  // font-size: 30px;
+  font-weight: bold;
+}
+#resp-table-header{
+  display: table-header-group;
+  background-color: gray;
+  font-weight: bold;
+  // font-size: 25px;
+}
+.table-header-cell{
+  display: table-cell;
+  padding: 10px;
+  text-align: right;
+  border-bottom: 1px solid black;
+}
+#resp-table-body{
+  display: table-row-group;
+}
+.resp-table-row{
+  display: table-row;
+}
+.table-body-cell{
+  display: table-cell;
+  border-bottom: 1px solid gray;
+}
+#resp-table-footer {
+  display: table-footer-group;
+  background-color: gray;
+  font-weight: bold;
+  // font-size: 25px;
+  color: white;
+}
+.table-footer-cell{
+  display: table-cell;
+  padding: 10px;
+  text-align: justify;
+  border-bottom: 1px solid black;
+}

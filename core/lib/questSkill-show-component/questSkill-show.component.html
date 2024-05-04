@@ -1,0 +1,16 @@
+<div class="quest-skill-show">
+  <div class="ps_title">{{ skill?.humanID + ': ' + skill?.title }}</div>
+  <div>
+    <img class="illustration" src="{{ imageUrl }}" />
+  </div>
+  <div style="white-space: pre-wrap">{{ skill?.description }}</div>
+      <!-- <img alt="{{skill.title}}" height="150px" src="{{skill.image}}"/> -->
+  <button
+  mat-icon-button
+  (click)="edit()"
+  aria-label="Edit the Skill"
+  matTooltip="Edit the Skill"
+>
+<mat-icon>edit</mat-icon>
+</button> 
+</div>

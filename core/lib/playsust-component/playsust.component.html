@@ -1,0 +1,75 @@
+<div fxLayout="column" fxFlexFill style="height: 100%;">
+  <!-- toolbar -->
+  <div fxFlex="64px" style="overflow-y: hidden;">
+    <mat-toolbar
+      class="toolbar flexible mat-theme-indigo"
+      color="primary"
+      style="width: 100%;"
+    >
+      <a routerLink="/" title="Home" class="pointer">
+        <img
+          alt="Home"
+          src="/assets/images/colabo-logo-url-square.jpg"
+          height="55px"
+          style="margin-right: 7px; opacity: 0.9; border-radius: 7px;"
+        />
+      </a>
+      <rima-avatar [size]="AvatarSize.s"></rima-avatar>
+    </mat-toolbar>
+  </div>
+
+  <div fxFlex style="/*background-color: yellow;*/ overflow-y:scroll;">
+    <div *ngIf="!isLoggedIn" style="margin: 15px;">
+      <p>
+        To access this page you need:
+      </p>
+      <a routerLink="/rima-login">
+        <button mat-raised-button color="primary">Login</button>
+      </a>
+
+      <p>
+        or
+      </p>
+      <a routerLink="/rima-register">
+        <button mat-raised-button color="primary">Register</button>
+      </a>
+    </div>
+    <div *ngIf="isLoggedIn">
+      <div style="margin: 15px;">
+        <h3>Play Sustainability!</h3>
+        <div class="bordered-block">
+          The <b>Play Sustainability!</b> Interactive Edu-Game
+           
+          <!-- <questSolution-show-puzzle></questSolution-show-puzzle>
+          <questChallenge-show-puzzle></questChallenge-show-puzzle> -->
+          
+          <div *ngIf="!puzzlesLoaded" class="container">
+            <span>The puzzles are being loaded ...</span>
+            <div class="rotating logo-preloader">
+              <img class="logo-preloader-img" src='/assets/images/colabo-logo-plain-s.jpg'/>
+            </div>
+          </div>
+          
+          <div *ngIf="puzzlesLoaded" [formGroup]="form">
+           <div>Choose your Puzzle</div>
+          <mat-form-field class="full-width">
+            <mat-label>Puzzles</mat-label>
+            <mat-select (selectionChange)="puzzleSelected($event)" formControlName="puzzle">
+              <mat-option [value]="puzzle?._id" *ngFor="let puzzle of puzzles">{{'Puzzle ' + puzzle?.humanID}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <!-- at least temporary puzzle solving form is not displayed through this button
+        <button
+        mat-mini-fab
+        (click)="showPanel()"
+        [disabled]="!canOpenPanel()"
+        class="max-width show-panel-btn"
+      >
+        <span class="material-icons">map</span>
+      </button> -->
+    </div>
+  </div>
+</div>

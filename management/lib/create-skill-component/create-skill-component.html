@@ -1,0 +1,72 @@
+<div class="editing" [hidden]="isPreviewing">
+  <form [formGroup]="questSkillForm" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          type="text"
+          placeholder="Title"
+          formControlName="title"
+          required
+        />
+        <mat-hint>Title of the Skill</mat-hint>
+        <mat-error class="error-message"
+          >Required. Must be minimum {{ TITLE_MIN }} and maximum
+          {{ TITLE_MAX }} characters long</mat-error
+        >
+      </mat-form-field>
+    </p>
+    <p>
+      <photo-upload (uploadStatusChanged)="uploadStatusChanged($event)" [photoSrcInitial]="imgHolder" [mediaType]="'playsust'" [mediaPrefix]="'q.challenge'" [mediaId]="imgName" [maxWidth]="1000" [maxHeight]="1000"></photo-upload>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <textarea
+          matInput
+          type="text"
+          placeholder="Description"
+          formControlName="description"
+          required
+        ></textarea>
+        <mat-hint>Describe your solution</mat-hint>
+        <mat-error class="error-message"
+          >Required. Must be minimum {{ DESC_MIN }} and maximum
+          {{ DESC_MAX }} characters long</mat-error
+        >
+      </mat-form-field>
+    </p>
+
+    <button type="button" mat-raised-button (click)="close()">
+      Cancel
+    </button>
+    <!-- <button type="button" mat-raised-button (click)="questSkillForm.reset()">
+      Reset
+    </button> -->
+    <button
+      type="button"
+      (click)="preview()"
+      mat-raised-button
+    >
+      Preview
+    </button>
+    <button
+      type="submit"
+      [disabled]="!questSkillForm.valid || submitted"
+      mat-raised-button
+    >
+      Submit
+    </button>
+    
+  </form>
+</div>
+<div class="preview" [hidden]="!isPreviewing">
+  <questSkill-show-puzzle [skill]="questSkillPreview"></questSkill-show-puzzle>
+  <button
+  type="button"
+  (click)="edit()"
+  mat-raised-button
+>
+  Edit
+</button>
+
+</div>

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "rootDir": "./",
+    "allowJs": true,
+    "outDir": "dist",
+	"preserveConstEnums": true,
+	"preserveSymlinks": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "listFiles": false,
+    "lib": ["es6", "dom"]
+  },
+  "allowSyntheticDefaultImports": false,
+  "files": ["index.ts"],
+  "include": [],
+  "exclude": ["**/*d.ts"],
+  "compileOnSave": false
+}

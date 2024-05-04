@@ -1,0 +1,337 @@
+<div class="playsust-form">
+  <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button> -->
+  <form [formGroup]="questPuzzleForm" (ngSubmit)="onSubmit()">
+    <mat-horizontal-stepper [linear]="isLinear" labelPosition="bottom" #stepper>
+      <mat-step [completed]="true">
+        <ng-template class="challenge" matStepLabel>Challenge</ng-template>
+        <div class="title">{{ questPuzzle?.challenge?.title }}</div>
+        <div>
+          <img class="illustration" src="{{ challengeImageUrl }}" />
+        </div>
+        <div>{{ questPuzzle?.challenge?.description }}</div>
+        <div>
+          <button type="button" mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button type="button" mat-icon-button matStepperNext>
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step [completed]="true">
+        <ng-template class="skill" matStepLabel
+          >Skill/Knowledge</ng-template
+        >
+        <div class="title">{{ questPuzzle?.skillCards[0]?.title }}</div>
+        <div>
+          <img class="illustration" src="{{ skillImageUrl }}" />
+        </div>
+        <div>{{ questPuzzle?.skillCards[0]?.description }}</div>
+        <div>
+          <button type="button" mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button type="button" mat-icon-button matStepperPrevious>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <button type="button" mat-icon-button matStepperNext>
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="questPuzzleForm.get('general')">
+        <ng-template matStepLabel>Solution / general</ng-template>
+        <div formGroupName="general">
+          <p>
+            <mat-form-field class="full-width">
+              <mat-label>Your Team</mat-label>
+              <mat-select formControlName="team">
+                <mat-option [value]="team._id" *ngFor="let team of teams">{{team.name}}</mat-option>
+                <!-- <mat-option
+                *ngFor="let team of teams" value="team._id"
+              >{{team.title}}</mat-option> -->
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="full-width">
+              <mat-label>Quest Round</mat-label>
+              <mat-select formControlName="round">
+                <mat-option [value]="round" *ngFor="let round of rounds">{{round}}</mat-option>
+                <!-- <mat-option
+                *ngFor="let round of rounds" value="round._id"
+              >{{round.title}}</mat-option> -->
+              </mat-select>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                type="text"
+                placeholder="Title"
+                formControlName="title"
+                required
+              />
+              <mat-hint>Title of your solution</mat-hint>
+              <mat-error class="error-message"
+                >Required. Must be minimum {{ TITLE_MIN }} and maximum
+                {{ TITLE_MAX }} characters long</mat-error
+              >
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="full-width">
+              <textarea
+                matInput
+                type="text"
+                placeholder="Description"
+                formControlName="description"
+                required
+              ></textarea>
+              <mat-hint>Describe your solution</mat-hint>
+              <mat-error class="error-message"
+                >Required. Must be minimum {{ DESC_MIN }} and maximum
+                {{ DESC_MAX }} characters long</mat-error
+              >
+            </mat-form-field>
+          </p>
+        </div>
+        <div>
+          <button type="button" mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button type="button" mat-icon-button matStepperPrevious>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <button type="button" mat-icon-button matStepperNext>
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="questPuzzleForm.get('details')">
+        <ng-template matStepLabel>Solution / Details</ng-template>
+        <div formGroupName="details">
+          <div class="title">
+            Expected Impact on Sustainable Development Pillars
+          </div>
+          <div>Environment</div>
+          <mat-slider
+            #environmentImpact
+            [max]="3"
+            [min]="-3"
+            [step]="1"
+            formControlName="environmentImpact"
+            [thumbLabel]="true"
+            [tickInterval]="1"
+            [vertical]="false"
+          >
+         </mat-slider><span class="padding-left">{{environmentImpact.value}}</span>
+          <div>Economy</div>
+          <mat-slider
+            #economyImpact
+            [max]="3"
+            [min]="-3"
+            [step]="1"
+            formControlName="economyImpact"
+            [thumbLabel]="true"
+            [tickInterval]="1"
+            [vertical]="false"
+          >
+          </mat-slider><span class="padding-left">{{economyImpact.value}}</span>
+          <div>Culture</div>
+          <mat-slider
+            #cultureImpact
+            [max]="3"
+            [min]="-3"
+            [step]="1"
+            formControlName="cultureImpact"
+            [thumbLabel]="true"
+            [tickInterval]="1"
+            [vertical]="false"
+          >
+          </mat-slider><span class="padding-left">{{cultureImpact.value}}</span>
+          <div>Society</div>
+          <mat-slider
+            #societyImpact
+            [max]="3"
+            [min]="-3"
+            [step]="1"
+            formControlName="societyImpact"
+            [thumbLabel]="true"
+            [tickInterval]="1"
+            [vertical]="false"
+          >
+          </mat-slider><span class="padding-left">{{societyImpact.value}}</span>
+
+          <div formArrayName="questions">
+            <h3>Questions</h3>
+            <div *ngFor="let question of questions.controls; let i = index">
+              <div>{{ questPuzzle.questions[i] }}</div>
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Your answer"
+                  [formControlName]="i"
+                  required
+                />
+                <mat-error class="error-message">Required</mat-error>
+              </mat-form-field>
+
+              <!-- <label>
+                Alias:
+                <input type="text" [formControlName]="i">
+              </label> -->
+            </div>
+          </div>
+
+          <!-- 
+          one hardcoded question solution
+          <div>
+            <div>What is your opinion on culture vs economy influence on this issue?</div>
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                type="text"
+                placeholder="Your answer"
+                formControlName="question"
+                required
+              />
+              <mat-error class="error-message"
+                >Required</mat-error
+              >
+            </mat-form-field>
+        </div> -->
+
+          <!-- QUIZ support
+          <label id="example-radio-group-label">{{question}}</label>
+        <mat-radio-group
+          aria-labelledby="quiz"
+          class="quiz"
+          [(ngModel)]="answer">
+          <mat-radio-button class="quiz-radio-button" *ngFor="let avAnswer of avaiableAnswers; index as i" [value]="avAnswer">
+            {{i}}
+          </mat-radio-button>
+        </mat-radio-group> -->
+        </div>
+        <!-- <mat-form-field>
+          <input matInput placeholder="Address" formControlName="fourthCtrl" required>
+        </mat-form-field> -->
+        <div>
+          <button type="button" mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button type="button" mat-icon-button matStepperPrevious>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <button type="button" (click) ="nextIfValidDetails()" mat-icon-button>
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+          <button type="button" mat-icon-button (click)="close()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button type="button" mat-icon-button matStepperPrevious>
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+          <!-- <button type="button" mat-raised-button (click)="close()">
+            Cancel
+          </button> -->
+          <button
+            type="submit"
+            [disabled]="!questPuzzleForm.valid || submitted"
+            mat-raised-button
+          >
+            Submit
+          </button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+
+  <!-- <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          type="text"
+          placeholder="Map Name"
+          formControlName="name"
+          required
+        />
+        <mat-error class="error-message"
+          >must be 2 characters at least</mat-error
+        >
+      </mat-form-field>
+    </p>
+    
+    <p>
+      <mat-slide-toggle matInput formControlName="isPublic" aria-label="public">
+        {{ isPublic() ? "public Map" : "private Map" }}
+        <span *ngIf="!isPublic()"><mat-icon>lock</mat-icon></span>
+      </mat-slide-toggle>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-select formControlName="mapTemplate">
+          <mat-option
+            [value]="mapTemplate.id"
+            *ngFor="let mapTemplate of mapTemplates"
+            >{{ mapTemplate.name }}</mat-option
+          >
+          
+        </mat-select>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          type="text"
+          placeholder="Map Description"
+          formControlName="desc"
+          value="{{ getDesc() }}"
+        />
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field class="full-width">
+        <input
+          matInput
+          type="text"
+          placeholder="Map ID" 
+          formControlName="mapId"
+        />
+        <mat-hint
+          >Default: Leave empty if you want mapId to be automatically
+          generated</mat-hint
+        >
+        <mat-error class="error-message">must be a valid Mongo ID (24 digits Hex number)</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!form.valid || submitted"
+      >
+        {{ creatBtnTitle }}
+      </button>
+      
+      <button mat-raised-button type="button" (click)="reset()">Clear</button>
+      <button mat-raised-button type="button" (click)="cancel()">Cancel</button>
+      
+    </p>
+  </form> -->
+</div>

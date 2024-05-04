@@ -1,0 +1,15 @@
+$imgWidth: 400px;
+$titleSize: 18px;
+
+.quest-skill-show{
+  width: 100%;
+}
+
+.ps_title {
+    font-size: $titleSize;
+    color: darkblue;
+    font-weight: bold;
+  }
+  .illustration {
+    max-width: $imgWidth;
+  }

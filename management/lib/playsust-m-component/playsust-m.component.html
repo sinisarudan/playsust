@@ -1,0 +1,201 @@
+
+<div fxLayout="column"  class="full-container" fxFlexFill style="height: 100%;">
+
+  <div fxFlex="64px" style="overflow-y: hidden;">
+    <mat-toolbar
+      class="toolbar flexible mat-theme-indigo"
+      color="primary"
+      style="width: 100%;"
+    >
+      <a routerLink="/" title="Home" class="pointer">
+        <img
+          alt="Home"
+          src="/assets/images/colabo-logo-url-square.jpg"
+          height="55px"
+          style="margin-right: 7px; opacity: 0.9; border-radius: 7px;"
+        />
+      </a>
+      <rima-avatar [size]="'s'"></rima-avatar>
+    </mat-toolbar>
+  </div>
+
+  <div fxFlex class="full-container" style="/*background-color: yellow;*/ overflow-y:scroll;">
+    <div *ngIf="!isLoggedIn" style="margin: 15px;">
+      <p>
+        To access this page you need:
+      </p>
+      <a routerLink="/rima-login">
+        <button mat-raised-button color="primary">Login</button>
+      </a>
+
+      <p>
+        or
+      </p>
+      <a routerLink="/rima-register">
+        <button mat-raised-button color="primary">Register</button>
+      </a>
+    </div>
+    <div *ngIf="isLoggedIn">
+      <div style="margin: 15px;">
+        <h3>Play Sustainability! Moderation Panel</h3>
+
+
+    <mat-tab-group
+      selectedIndex="4"
+    > <!-- selectedIndex="4" "SOLUTIONS"-->
+      <mat-tab label="{{'Challenges (' + challenges.length +')'}}">
+        <ng-template matTabContent>
+          <div layout="column" class="tab-content">
+            <div>
+              <!-- <span>Challenges</span> -->
+            </div>
+            <button
+            *ngIf="true || isModerator"
+              mat-raised-button
+              color="primary"
+              (click)="addChallenge()"
+              aria-label="Add a Challenge"
+            >
+              <!-- <mat-icon>settings_system_daydream</mat-icon> -->
+              Add a Challenge
+            </button>
+            <questChallenge-show-puzzle class="bordered" [challenge]="challenge" (editing)="editChallenge($event)" *ngFor="let challenge of challenges"></questChallenge-show-puzzle>
+          </div>
+          
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="{{'Skills (' + skills.length +')'}}">
+        <ng-template matTabContent>
+          <div layout="column" class="tab-content">
+            <div>
+              <!-- <span>Skills</span> -->
+            </div>
+            <button
+            *ngIf="true || isModerator"
+              mat-raised-button
+              color="primary"
+              (click)="addSkillCard()"
+              aria-label="Add a Challenge"
+            >
+              <!-- <mat-icon>settings_system_daydream</mat-icon> -->
+              Add a Skill Card
+            </button>
+            <questSkill-show-puzzle class="bordered" [skill]="skill" (editing)="editSkillCard($event)"  *ngFor="let skill of skills"></questSkill-show-puzzle>
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="{{'Puzzles (' + puzzles.length +')'}}">
+        <ng-template matTabContent>
+          <div layout="column" class="tab-content">
+            <div>
+              <!-- <span>Puzzles</span> -->
+            </div>
+            <button
+              *ngIf="true || isModerator"
+              mat-raised-button
+              color="primary"
+              (click)="addSPuzzle()"
+              aria-label="Add a Challenge"
+            >
+              <!-- <mat-icon>settings_system_daydream</mat-icon> -->
+              Add a Puzzle
+            </button>
+            <!-- https://material.angular.io/components/grid-list/api -->
+
+            <!-- <mat-grid-list cols="4">
+              <mat-grid-tile  *ngFor="let puzzle of puzzles">
+                <quest-puzzle-show [puzzle]="puzzle" class="quest_puzzle_show"></quest-puzzle-show>
+              </mat-grid-tile>
+            </mat-grid-list> -->
+    
+            <mat-slide-toggle
+            (change)="puzzlesShowImagesChanged()"
+            [checked]="puzzlesShowImages"
+
+            matTooltip="Show Images"
+            matTooltipPosition="right"
+            aria-label="Show Images"
+            >Show Images</mat-slide-toggle>
+
+            <mat-slide-toggle
+            (change)="puzzlesShowDescriptionsChanged()"
+            [checked]="puzzlesShowDescriptions"
+
+            matTooltip="Show Descriptions"
+            matTooltipPosition="right"
+            aria-label="Show Descriptions"
+            >Show Descriptions</mat-slide-toggle>
+
+            <quest-puzzle-show [puzzle]="puzzle" (editing)="editPuzzle($event)" [puzzlesShowImages]="puzzlesShowImages" [puzzlesShowDescriptions]="puzzlesShowDescriptions" class="quest_puzzle_show" *ngFor="let puzzle of puzzles"></quest-puzzle-show>
+
+            <!-- {{'Puzzle ' + puzzle.humanID}} -->
+          </div>
+        </ng-template>
+      </mat-tab>
+
+      <mat-tab label="{{'Quests (' + quests.length +')'}}">
+        <ng-template matTabContent>
+          <div layout="column" class="tab-content">
+            <div>
+              <!-- <button type="button" mat-icon-button (click)="refreshQuest()"
+
+              matTooltip="Refresh Stats"
+              matTooltipPosition="right"
+              aria-label="Refresh Stats"
+              >
+                <mat-icon>refresh</mat-icon>
+              </button> -->
+            </div>
+            <!-- <quest-show [quest]="quest" (editing)="editQuest($event)" class="quest_quest_show" *ngFor="let quest of quests"></quest-show> -->
+
+            <!-- {{'Quest ' + puzzle.humanID}} -->
+          </div>
+        </ng-template>
+      </mat-tab> 
+
+      <mat-tab label="{{'Solutions (' + solutions.length +')'}}">
+        <ng-template matTabContent>
+          <div layout="column" class="tab-content">
+            <div>
+              <button type="button" mat-icon-button (click)="refreshSolution()"
+
+              matTooltip="Refresh Solutions"
+              matTooltipPosition="right"
+              aria-label="Refresh Solutions"
+              >
+                <mat-icon>refresh</mat-icon>
+              </button>
+            </div>
+            <!-- <button
+              *ngIf="true || isModerator"
+              mat-raised-button
+              color="primary"
+              (click)="addSSolution()"
+              aria-label="Add a Challenge"
+            >
+              Add a Solution
+            </button> -->
+            <!-- https://material.angular.io/components/grid-list/api -->
+
+            <!-- <mat-grid-list cols="4">
+              <mat-grid-tile  *ngFor="let solution of solutions">
+                <quest-solution-show [solution]="solution" class="quest_solution_show"></quest-solution-show>
+              </mat-grid-tile>
+            </mat-grid-list> -->
+
+            <quest-solution-show [solution]="solution" (editing)="editSolution($event)" (viewing)="viewSolution($event)" (evaluating)="evaluateSolution($event)" class="quest_solution_show" *ngFor="let solution of solutions"></quest-solution-show>
+
+            <!-- {{'Solution ' + puzzle.humanID}} -->
+          </div>
+        </ng-template>
+      </mat-tab>
+</mat-tab-group>
+
+        <div class="bordered-block">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
