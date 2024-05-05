@@ -17,4 +17,4 @@ Notable executions at: [Climathon Belgrade and Climathon Oslo 2019/20](https://c
 ## Dev
 
 - The provided code is a code for demonstration of app/game
-The game is developed as a **puzzle** (module) of [Colabo.Space ](https://www.colabo.space) socio-digital ecosystem, depending on its other puzzles, so the code is not runnable by itself.
+- The game is developed as a **puzzle** (module) of [Colabo.Space ](https://www.colabo.space) socio-digital ecosystem, depending on its other puzzles, so the code is not runnable by itself.
